@@ -1,5 +1,7 @@
 package com.paypal.bfs.test.employeeserv.api;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +22,14 @@ public interface EmployeeResource {
      * @return {@link Employee} resource.
      */
     @GetMapping("/v1/bfs/employees/{id}")
-    ResponseEntity<Employee> employeeGetById(@PathVariable("id") String id);
+    ResponseEntity<Employee> employeeGetById(@Valid @PathVariable("id") Integer id);
 
+    /**
+     * Creates the {@link Employee} passes as input
+     * 
+     * @param employee
+     * @return {@link Employee} resource 
+     */
     @PostMapping("/v1/bfs/employees/")
-    ResponseEntity<Employee> employeeCreate(@RequestBody Employee employee);
+    ResponseEntity<Employee> employeeCreate(@Valid @RequestBody Employee employee);
 }
