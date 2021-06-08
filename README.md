@@ -27,7 +27,6 @@ Logging and Monitoring
 - Logging is being done with help of log4j2 and logging is added in all methods with appropriate log level
 - MDC added for tracing a particular incoming request in log lines. GET request is traced via ID and POST request is traced via Name of Employee
 - PERF statements added for database calls to check database response time during Load Test
-- Metrics added, can be enabled by configuring metric.enable=true. This will give the time taken in each method and can be used to find out time taking methods.
 
 Project  
 
@@ -41,7 +40,7 @@ Code Quality
 
 - Unit Testing for all methods with logic, code coverage at 85%
 - SONAR issues removed
-- Project is broken down into packages and no classes exceed 100 line length
+- Project is broken down into logical packages (service, repository, configuration etc) and no classes exceed 100 line length
 
 Response
 
