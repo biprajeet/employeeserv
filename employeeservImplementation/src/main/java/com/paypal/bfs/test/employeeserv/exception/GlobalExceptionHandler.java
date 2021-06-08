@@ -27,12 +27,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<?> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
 		
-		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), request.getDescription(false));
+		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), request != null ? request.getDescription(false) : "");
 		
 		ResponseEntity<ErrorMessage> response = new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
 		
-		logger.error("Employee resource retrieval request response status = {} for employee id ={}",
-				response.getStatusCode(), request.getParameter("id"));
+		logger.error("Response returned, status : {}", response.getStatusCode());
 		
 		MDC.clear();
 		
@@ -40,8 +39,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> globleExcpetionHandler(Exception ex, WebRequest request) {
-		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), request.getDescription(false));
+	public ResponseEntity<?> globleExceptionHandler(Exception ex, WebRequest request) {
+		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), request != null ? request.getDescription(false) : "");
 		
 		ResponseEntity<ErrorMessage> response = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 		
@@ -55,7 +54,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		ErrorMessage errorMessage = new ErrorMessage(new Date(), "Validation Failed", ex.getBindingResult().toString());
+		ErrorMessage errorMessage = new ErrorMessage(new Date(), "Validation Failed", ex != null ? ex.getBindingResult().toString() : "");
 		
 		ResponseEntity<Object> response =  new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
 		
