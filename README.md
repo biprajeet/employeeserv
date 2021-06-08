@@ -9,9 +9,10 @@ There are three modules in this application
 	- `jsonschema2pojo-maven-plugin` is being used to create `Employee POJO` from json file.
 	- `EmployeeResource.java` is the interface for CRUD operations on `Employee` resource.
 		- GET `/v1/bfs/employees/{id}` endpoint is defined to fetch the resource.
+		- POST `/v1/bfs/employees/` endpoint is defined to create the resource.
 - employeeservImplementation - This module contains the implementation for the rest endpoints.
 	- `EmployeeResourceImpl.java` implements the `EmployeeResource` interface.
-- employeeservFunctionalTests - This module would have the functional tests.
+- employeeservFunctionalTests - This module would have the functional tests.Load Balancer 
 
 ## How to run the application
 - Please have Maven version `3.3.3` & Java 8 on your system.
@@ -19,17 +20,35 @@ There are three modules in this application
 - Use command `mvn spring-boot:run` from `employeeservImplementation` folder to run the project.
 - Use postman or curl to access `http://localhost:8080/v1/bfs/employees/1` GET endpoint. It will return an Employee resource.
 
-## Assignment
-We would like you to enhance the existing project and see you complete the following requirements:
+## Work Done
 
-- `employee.json` has only `name`, and `id` elements. Please add `date of birth` and `address` elements to the `Employee` resource. Address will have `line1`, `line2`, `city`, `state`, `country` and `zip_code` elements. `line2` is an optional element.
-- Add one more operation in `EmployeeResource` to create an employee. `EmployeeResource` will have two operations, one to create, and another to retrieve the employee resource.
-- Implement create and retrieve operations in `EmployeeResourceImpl.java`.
-- Resource created using create endpoint should be retrieved using retrieve/get endpoint.
-- Please use h2 in-memory database or any other in-memory database to persist the `Employee` resource. Dependency for h2 in-memory database is already added to the parent pom.
-- Please make sure the validations are done for the requests.
-- Response codes are as per rest guidelines.
-- Error handling in case of failures.
+Logging and Monitoring
 
-## Assignment submission
-Thank you very much for your time to take this test. Please upload this complete solution in Github and send us the link to `bfs-sor-interview@paypal.com`.
+- Logging is being done with help of log4j2 and logging is added in all methods with appropriate log level
+- MDC added for tracing a particular incoming request in log lines. GET request is traced via ID and POST request is traced via Name of Employee
+- PERF statements added for database calls to check database response time during Load Test
+- Metrics added, can be enabled by configuring metric.enable=true. This will give the time taken in each method and can be used to find out time taking methods.
+
+Project  
+
+- Input Validation - EmployeeservApi contains validation in JSON which is used to validate incoming inputs
+- Security & Authorization - The rest calls can be secured and authenticated at Load Balancer Level. (CA Certificates and JWT implementation on client side)
+- v1 vs v2 Went ahead with modifying v1 as the assignment is not a breaking change. Older Clients will get more information when calling GET endpoint
+- Rate Limiting can be handled at Load Balancer level
+- Input Sanitization for security vulnerabilities can be handled at Load Balancer level. 
+
+Code Quality
+
+- Unit Testing for all methods with logic, code coverage at 85%
+- SONAR issues removed
+- Project is broken down into packages and no classes exceed 100 line length
+
+Response
+
+- 200 OK - If requested resource is returned correctly
+- 201 CREATED - If post request was successful
+- 404 NOT FOUND - If requested resource does not exist (example : `GET /v1/bfs/employees/500` and id 500 does not exist)
+- 400 BAD REQUEST - If input is incorrect as per `v1/schema/employee.json` or validation has failed
+- 500 INTERNAL SERVER ERROR - If any other error occurs
+
+
