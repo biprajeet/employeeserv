@@ -58,7 +58,7 @@
 					"minLength": 1,
 					"maxLength": 255
 				},
-				"zipcode": {
+				"zip_code": {
 					"description": "Zip Code",
 					"type": "string",
 					"minLength": 1,
