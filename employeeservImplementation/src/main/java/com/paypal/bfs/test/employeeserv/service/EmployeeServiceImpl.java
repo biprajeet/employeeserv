@@ -30,11 +30,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 	@Override
 	public EmployeeEntity createEmployee(EmployeeEntity employee) {
+		long timestamp = System.currentTimeMillis();
+		
 		logger.debug("Employee recevied in service layer for persistence = {}", employee.toString()); 
 		
 		EmployeeEntity employeeEntity = this.employeeRepository.save(employee);
 		
 		logger.debug("Employee created : {}", employeeEntity.toString());
+		
+		logger.trace("[PERF] Time taken in INSERT entry to database {}", System.currentTimeMillis() - timestamp);
 		
 		return employeeEntity;
 	}
@@ -45,10 +49,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public EmployeeEntity getEmployeeById(Integer id) {
 		
+		long timestamp = System.currentTimeMillis();
+		
 		logger.debug("Employee Details retrieve request received with ID : {}", id );
 		
 		Optional<EmployeeEntity> employeeFromDb = this.employeeRepository.findById(id);
 
+		logger.trace("[PERF] Time taken in SELECT entry to database {}", System.currentTimeMillis() - timestamp);
+		
 		if (employeeFromDb.isPresent()) {
 			
 			EmployeeEntity employeeEntity = employeeFromDb.get();
