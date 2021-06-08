@@ -207,7 +207,21 @@ public class EmployeeEntity {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
+
+	/**
+	 * @return the addressZipCode
+	 */
+	public String getAddressZipCode() {
+		return addressZipCode;
+	}
+
+	/**
+	 * @param addressZipCode the addressZipCode to set
+	 */
+	public void setAddressZipCode(String addressZipCode) {
+		this.addressZipCode = addressZipCode;
+	}
+
 	@Override
 	public String toString() {
 		return "EmployeeEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
@@ -215,6 +229,6 @@ public class EmployeeEntity {
 				+ addressCity + ", addressState=" + addressState + ", addressCountry=" + addressCountry
 				+ ", addressZipCode=" + addressZipCode + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
-
+	
 
 }

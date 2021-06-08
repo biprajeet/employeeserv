@@ -71,7 +71,7 @@
 				"city",
 				"state",
 				"country",
-				"zipcode"
+				"zip_code"
 			]
 		}
 	},
