@@ -25,7 +25,7 @@ public interface EmployeeResource {
     ResponseEntity<Employee> employeeGetById(@Valid @PathVariable("id") Integer id);
 
     /**
-     * Creates the {@link Employee} passes as input
+     * Creates the {@link Employee} passed as input
      * 
      * @param employee
      * @return {@link Employee} resource 
