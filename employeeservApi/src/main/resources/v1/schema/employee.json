@@ -23,7 +23,7 @@
 			"description": "Date of birth",
 			"type": "string",
 			"format": "date-time",
-			"customPattern" : "dd-MM-yy"
+			"customPattern" : "dd-MM-yyyy"
 		},
 		"address": {
 			"description": "Address",

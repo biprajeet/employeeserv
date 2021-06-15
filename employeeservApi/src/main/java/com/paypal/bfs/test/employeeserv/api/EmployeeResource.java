@@ -30,6 +30,6 @@ public interface EmployeeResource {
      * @param employee
      * @return {@link Employee} resource 
      */
-    @PostMapping("/v1/bfs/employees/")
+    @PostMapping("/v1/bfs/employees")
     ResponseEntity<Employee> employeeCreate(@Valid @RequestBody Employee employee);
 }
