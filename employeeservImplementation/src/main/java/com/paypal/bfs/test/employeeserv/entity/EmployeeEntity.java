@@ -1,12 +1,17 @@
 package com.paypal.bfs.test.employeeserv.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +23,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class EmployeeEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name = "firstName")
@@ -29,24 +34,10 @@ public class EmployeeEntity {
 
 	@Column(name = "dateOfBirth")
 	private Date dateOfBirth;
-
-	@Column(name = "addressLine1")
-	private String addressLine1;
-
-	@Column(name = "addressLine2")
-	private String addressLine2;
-
-	@Column(name = "addressCity")
-	private String addressCity;
-
-	@Column(name = "addressState")
-	private String addressState;
-
-	@Column(name = "addressCountry")
-	private String addressCountry;
-
-	@Column(name = "addressZipCode")
-	private String addressZipCode;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn( name = "ea_fid", referencedColumnName = "id")
+	List<AddressEntity> address = new ArrayList<>();	
 
 	@CreationTimestamp
 	private Date createdAt;
@@ -111,73 +102,17 @@ public class EmployeeEntity {
 	}
 
 	/**
-	 * @return the addressLine1
+	 * @return the address
 	 */
-	public String getAddressLine1() {
-		return addressLine1;
+	public List<AddressEntity> getAddress() {
+		return address;
 	}
 
 	/**
-	 * @param addressLine1 the addressLine1 to set
+	 * @param address the address to set
 	 */
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
-	}
-
-	/**
-	 * @return the addressLine2
-	 */
-	public String getAddressLine2() {
-		return addressLine2;
-	}
-
-	/**
-	 * @param addressLine2 the addressLine2 to set
-	 */
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
-	}
-
-	/**
-	 * @return the addressCity
-	 */
-	public String getAddressCity() {
-		return addressCity;
-	}
-
-	/**
-	 * @param addressCity the addressCity to set
-	 */
-	public void setAddressCity(String addressCity) {
-		this.addressCity = addressCity;
-	}
-
-	/**
-	 * @return the addressState
-	 */
-	public String getAddressState() {
-		return addressState;
-	}
-
-	/**
-	 * @param addressState the addressState to set
-	 */
-	public void setAddressState(String addressState) {
-		this.addressState = addressState;
-	}
-
-	/**
-	 * @return the addressCountry
-	 */
-	public String getAddressCountry() {
-		return addressCountry;
-	}
-
-	/**
-	 * @param addressCountry the addressCountry to set
-	 */
-	public void setAddressCountry(String addressCountry) {
-		this.addressCountry = addressCountry;
+	public void setAddress(List<AddressEntity> address) {
+		this.address = address;
 	}
 
 	/**
@@ -208,27 +143,9 @@ public class EmployeeEntity {
 		this.updatedAt = updatedAt;
 	}
 
-	/**
-	 * @return the addressZipCode
-	 */
-	public String getAddressZipCode() {
-		return addressZipCode;
-	}
-
-	/**
-	 * @param addressZipCode the addressZipCode to set
-	 */
-	public void setAddressZipCode(String addressZipCode) {
-		this.addressZipCode = addressZipCode;
-	}
-
 	@Override
 	public String toString() {
 		return "EmployeeEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
-				+ dateOfBirth + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", addressCity="
-				+ addressCity + ", addressState=" + addressState + ", addressCountry=" + addressCountry
-				+ ", addressZipCode=" + addressZipCode + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+				+ dateOfBirth + ", address=" + address + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
-	
-
 }
