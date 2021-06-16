@@ -24,6 +24,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
 	
+	@ExceptionHandler(ResourceExistsException.class)
+	public ResponseEntity<?> resourceExistsException(ResourceExistsException ex, WebRequest request) {
+		
+		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), request != null ? request.getDescription(false) : "");
+		
+		ResponseEntity<ErrorMessage> response = new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
+		
+		logger.error("Response returned, status : {}", response.getStatusCode());
+		
+		MDC.clear();
+		
+		return response;
+	}
+	
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<?> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
 		
