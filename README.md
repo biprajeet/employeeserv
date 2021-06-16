@@ -48,6 +48,7 @@ Response
 - 201 CREATED - If post request was successful
 - 404 NOT FOUND - If requested resource does not exist (example : `GET /v1/bfs/employees/500` and id 500 does not exist)
 - 400 BAD REQUEST - If input is incorrect as per `v1/schema/employee.json` or validation has failed
+- 409 CONFLICT - If the resource we are trying to create already exists
 - 500 INTERNAL SERVER ERROR - If any other error occurs
 
 
