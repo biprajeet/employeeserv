@@ -79,7 +79,7 @@ public class EmployeeResourceImpl implements EmployeeResource {
 
 	@Override
 	public ResponseEntity<List<Employee>> getAllEmployees() {
-		MDC.put("Data Access Request", "All employees");
+		MDC.put(LogMDCIdentifierEnum.TYPE.name(), "Get all employees");
 
 		logger.info("Employee Resource retrieval request received ");
 
