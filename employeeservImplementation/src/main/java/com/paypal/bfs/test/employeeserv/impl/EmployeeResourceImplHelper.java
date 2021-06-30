@@ -27,9 +27,9 @@ public class EmployeeResourceImplHelper {
 	 * @return EmployeeEntity
 	 */
 	public EmployeeEntity convertEmployeeModelToEntity(Employee employeeModel) {
-		logger.info("Conversion Request Employee to EmployeeEntity, Employee = {}", employeeModel.toString());
+		logger.info("Conversion Request Employee to EmployeeEntity, Employee = {}", employeeModel);
 		EmployeeEntity employeeEntity = modelMapper.map(employeeModel, EmployeeEntity.class);
-		logger.info("Conversion to EmployeeEntity = {}", employeeEntity.toString());
+		logger.info("Conversion to EmployeeEntity = {}", employeeEntity);
 		return employeeEntity;
 	}
 
@@ -39,9 +39,9 @@ public class EmployeeResourceImplHelper {
 	 * @return Employee
 	 */
 	public Employee convertEntityToEmployeeModel(EmployeeEntity employeeEntity) {
-		logger.info("Conversion Request EmployeeEntity to Employee, EmployeeEntity = {}", employeeEntity.toString());
+		logger.info("Conversion Request EmployeeEntity to Employee, EmployeeEntity = {}", employeeEntity);
 		Employee employeeModel = modelMapper.map(employeeEntity, Employee.class);
-		logger.info("Conversion to Employee = {}", employeeModel.toString());
+		logger.info("Conversion to Employee = {}", employeeModel);
 		return employeeModel;
 	}
 }

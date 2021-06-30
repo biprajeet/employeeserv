@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.paypal.bfs.test.employeeserv.api.EmployeeResource;
 import com.paypal.bfs.test.employeeserv.api.model.Employee;
-import com.paypal.bfs.test.employeeserv.common.EmployeeServConstants;
+import com.paypal.bfs.test.employeeserv.common.LogMDCIdentifierEnum;
 import com.paypal.bfs.test.employeeserv.service.EmployeeService;
 
 /**
@@ -36,7 +36,7 @@ public class EmployeeResourceImpl implements EmployeeResource {
 	@Override
 	public ResponseEntity<Employee> employeeGetById(Integer id) {
 
-		MDC.put(EmployeeServConstants.ID, id);
+		MDC.put(LogMDCIdentifierEnum.ID.name(), id);
 
 		logger.info("Employee resource retrieval request received with employee id = {}", id);
 
@@ -46,7 +46,7 @@ public class EmployeeResourceImpl implements EmployeeResource {
 		ResponseEntity<Employee> response = new ResponseEntity<>(employeeFound, HttpStatus.OK);
 
 		logger.info("Employee resource retrieval request response status = {} for employee id ={}, employee = {}",
-				response.getStatusCode(), id, employeeFound.toString());
+				response.getStatusCode(), id, employeeFound);
 
 		MDC.clear();
 
@@ -59,9 +59,9 @@ public class EmployeeResourceImpl implements EmployeeResource {
 	@Override
 	public ResponseEntity<Employee> employeeCreate(Employee employee) {
 
-		MDC.put(EmployeeServConstants.NAME, employee.getFirstName() + " " + employee.getLastName());
+		MDC.put(LogMDCIdentifierEnum.NAME.name(), employee.getFirstName() + " " + employee.getLastName());
 
-		logger.info("Employee Resource Creation request Received with employee details = {}", employee.toString());
+		logger.info("Employee Resource Creation request Received with employee details = {}", employee);
 
 		Employee employeeCreated = employeeResourceImplHelper.convertEntityToEmployeeModel(
 				employeeService.createEmployee(employeeResourceImplHelper.convertEmployeeModelToEntity(employee)));
@@ -70,7 +70,7 @@ public class EmployeeResourceImpl implements EmployeeResource {
 
 		logger.info(
 				"Employee resource creation request returned with response status = {} for employee id ={}, employee = {}",
-				response.getStatusCode(), employeeCreated.getId(), employeeCreated.toString());
+				response.getStatusCode(), employeeCreated.getId(), employeeCreated);
 
 		MDC.clear();
 

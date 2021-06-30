@@ -25,7 +25,7 @@ import com.paypal.bfs.test.employeeserv.respository.EmployeeRepository;
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
-	Logger logger = LogManager.getLogger(EmployeeService.class);
+	Logger logger = LogManager.getLogger(EmployeeServiceImpl.class);
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public EmployeeEntity createEmployee(EmployeeEntity employee) {
 
-		logger.debug("Employee recevied in service layer for persistence = {}", employee.toString());
+		logger.debug("Employee recevied in service layer for persistence = {}", employee);
 
 		if (!this.isEmployeeExists(employee)) {
 
@@ -49,13 +49,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			logger.trace("[PERF] Time taken in INSERT entry to database {}", System.currentTimeMillis() - timestamp);
 
-			logger.debug("Employee created : {}", employeeEntity.toString());
+			logger.debug("Employee created : {}", employeeEntity);
 
 			return employeeEntity;
 
 		} else {
-			logger.error("Employee details already exists with first name : " + employee.getFirstName() + ", last name : "
-					+ employee.getLastName() + ", date of birth : " + employee.getDateOfBirth());
+			logger.error("Employee details already exists with first name : {} , last name : {}, date of birth : {}" 
+					, employee.getFirstName(), employee.getLastName(), employee.getDateOfBirth());
 
 			throw new ResourceExistsException(
 					"Employee details already exists with first name : " + employee.getFirstName() + ", last name : "
@@ -71,7 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	 */
 	private boolean isEmployeeExists(EmployeeEntity employee) {
 
-		logger.debug("Employee details recevied checking if their details already exist = {}", employee.toString());
+		logger.debug("Employee details recevied checking if their details already exist = {}", employee);
 
 		long timestamp = System.currentTimeMillis();
 
@@ -108,7 +108,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 			EmployeeEntity employeeEntity = employeeFromDb.get();
 
-			logger.debug("Employee found : {}", employeeEntity.toString());
+			logger.debug("Employee found : {}", employeeEntity);
 
 			return employeeEntity;
 		} else {

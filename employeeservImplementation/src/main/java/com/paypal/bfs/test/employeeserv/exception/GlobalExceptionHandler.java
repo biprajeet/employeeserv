@@ -22,16 +22,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-	Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
+	Logger loggerHelper = LogManager.getLogger(GlobalExceptionHandler.class);
 	
 	@ExceptionHandler(ResourceExistsException.class)
-	public ResponseEntity<?> resourceExistsException(ResourceExistsException ex, WebRequest request) {
+	public ResponseEntity<ErrorMessage> resourceExistsException(ResourceExistsException ex, WebRequest request) {
 		
 		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), request != null ? request.getDescription(false) : "");
 		
 		ResponseEntity<ErrorMessage> response = new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
 		
-		logger.error("Response returned, status : {}", response.getStatusCode());
+		loggerHelper.error("Response returned ,status : {}", response.getStatusCode());
 		
 		MDC.clear();
 		
@@ -39,13 +39,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<?> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+	public ResponseEntity<ErrorMessage> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
 		
 		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), request != null ? request.getDescription(false) : "");
 		
 		ResponseEntity<ErrorMessage> response = new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
 		
-		logger.error("Response returned, status : {}", response.getStatusCode());
+		loggerHelper.error("Response returned,  status : {}", response.getStatusCode());
 		
 		MDC.clear();
 		
@@ -53,12 +53,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> globleExceptionHandler(Exception ex, WebRequest request) {
+	public ResponseEntity<ErrorMessage> globleExceptionHandler(Exception ex, WebRequest request) {
 		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage(), request != null ? request.getDescription(false) : "");
 		
 		ResponseEntity<ErrorMessage> response = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 		
-		logger.error("Response returned, status : {}", response.getStatusCode());
+		loggerHelper.error("Response returned , status : {}", response.getStatusCode());
 		
 		MDC.clear();
 		
@@ -72,7 +72,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		ResponseEntity<Object> response =  new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
 		
-		logger.error("Response returned, status : {}", response.getStatusCode());
+		loggerHelper.error("Response returned, status : {}", response.getStatusCode());
 		
 		MDC.clear();
 		
