@@ -1,5 +1,8 @@
 package com.paypal.bfs.test.employeeserv.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jboss.logging.MDC;
@@ -70,6 +73,22 @@ public class EmployeeResourceImpl implements EmployeeResource {
 				response.getStatusCode(), employeeCreated.getId(), employeeCreated.toString());
 
 		MDC.clear();
+
+		return response;
+	}
+
+	@Override
+	public ResponseEntity<List<Employee>> getAllEmployees() {
+		MDC.put("Data Access Request", "All employees");
+
+		logger.info("Employee Resource retrieval request received ");
+
+		List<Employee> employees = employeeService.getAllEmployee().stream()
+				.map(employeeResourceImplHelper::convertEntityToEmployeeModel).collect(Collectors.toList());
+
+		ResponseEntity<List<Employee>> response = new ResponseEntity<>(employees, HttpStatus.OK);
+
+		logger.info("Employee details list returned, count = {}", employees.size());
 
 		return response;
 	}

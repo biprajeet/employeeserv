@@ -1,16 +1,12 @@
 package com.paypal.bfs.test.employeeserv.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "Address")
@@ -19,7 +15,7 @@ public class AddressEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "line1")
 	private String line1;
 
@@ -38,12 +34,8 @@ public class AddressEntity {
 	@Column(name = "zipCode")
 	private String zipCode;
 
-	@CreationTimestamp
-	private Date createdAt;
-
-	@UpdateTimestamp
-	private Date updatedAt;
-	
+	@Embedded
+	private Audit audit = new Audit();
 
 	/**
 	 * @return the id
@@ -52,16 +44,12 @@ public class AddressEntity {
 		return id;
 	}
 
-
-
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
 
 	/**
 	 * @return the line1
@@ -70,16 +58,12 @@ public class AddressEntity {
 		return line1;
 	}
 
-
-
 	/**
 	 * @param line1 the line1 to set
 	 */
 	public void setLine1(String line1) {
 		this.line1 = line1;
 	}
-
-
 
 	/**
 	 * @return the line2
@@ -88,16 +72,12 @@ public class AddressEntity {
 		return line2;
 	}
 
-
-
 	/**
 	 * @param line2 the line2 to set
 	 */
 	public void setLine2(String line2) {
 		this.line2 = line2;
 	}
-
-
 
 	/**
 	 * @return the city
@@ -106,16 +86,12 @@ public class AddressEntity {
 		return city;
 	}
 
-
-
 	/**
 	 * @param city the city to set
 	 */
 	public void setCity(String city) {
 		this.city = city;
 	}
-
-
 
 	/**
 	 * @return the state
@@ -124,16 +100,12 @@ public class AddressEntity {
 		return state;
 	}
 
-
-
 	/**
 	 * @param state the state to set
 	 */
 	public void setState(String state) {
 		this.state = state;
 	}
-
-
 
 	/**
 	 * @return the country
@@ -142,16 +114,12 @@ public class AddressEntity {
 		return country;
 	}
 
-
-
 	/**
 	 * @param country the country to set
 	 */
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
-
 
 	/**
 	 * @return the zipCode
@@ -160,8 +128,6 @@ public class AddressEntity {
 		return zipCode;
 	}
 
-
-
 	/**
 	 * @param zipCode the zipCode to set
 	 */
@@ -169,48 +135,24 @@ public class AddressEntity {
 		this.zipCode = zipCode;
 	}
 
-
-
 	/**
-	 * @return the createdAt
+	 * @return the audit
 	 */
-	public Date getCreatedAt() {
-		return createdAt;
+	public Audit getAudit() {
+		return audit;
 	}
 
-
-
 	/**
-	 * @param createdAt the createdAt to set
+	 * @param audit the audit to set
 	 */
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setAudit(Audit audit) {
+		this.audit = audit;
 	}
-
-
-
-	/**
-	 * @return the updatedAt
-	 */
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-
-
-	/**
-	 * @param updatedAt the updatedAt to set
-	 */
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-
 
 	@Override
 	public String toString() {
 		return "AddressEntity [id=" + id + ", line1=" + line1 + ", line2=" + line2 + ", city=" + city + ", state="
-				+ state + ", country=" + country + ", zipCode=" + zipCode + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + "]";
+				+ state + ", country=" + country + ", zipCode=" + zipCode + ", audit=" + audit + "]";
 	}
+
 }

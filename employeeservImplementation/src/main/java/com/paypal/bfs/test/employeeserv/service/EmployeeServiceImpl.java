@@ -1,5 +1,6 @@
 package com.paypal.bfs.test.employeeserv.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -116,6 +117,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw new ResourceNotFoundException("Employee not found with id :  " + id);
 		}
 
+	}
+
+	/**
+	 * Implementation of get all employees
+	 * 
+	 */
+	@Override
+	public List<EmployeeEntity> getAllEmployee() {
+
+		logger.debug("Request received for getting all employee details");
+		
+		List<EmployeeEntity> employees = this.employeeRepository.findAll();
+		
+		logger.debug("Returning List of all employees, total returned {}", employees.size());
+		
+		return employees;
 	}
 
 }

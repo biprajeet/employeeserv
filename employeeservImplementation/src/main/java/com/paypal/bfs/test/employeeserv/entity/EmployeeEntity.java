@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,9 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "Employee")
@@ -39,11 +37,8 @@ public class EmployeeEntity {
 	@JoinColumn( name = "ea_fid", referencedColumnName = "id")
 	List<AddressEntity> address = new ArrayList<>();	
 
-	@CreationTimestamp
-	private Date createdAt;
-
-	@UpdateTimestamp
-	private Date updatedAt;
+	@Embedded
+	private Audit audit = new Audit();
 
 	/**
 	 * @return the id
@@ -116,36 +111,23 @@ public class EmployeeEntity {
 	}
 
 	/**
-	 * @return the createdAt
+	 * @return the audit
 	 */
-	public Date getCreatedAt() {
-		return createdAt;
+	public Audit getAudit() {
+		return audit;
 	}
 
 	/**
-	 * @param createdAt the createdAt to set
+	 * @param audit the audit to set
 	 */
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	/**
-	 * @return the updatedAt
-	 */
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	/**
-	 * @param updatedAt the updatedAt to set
-	 */
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setAudit(Audit audit) {
+		this.audit = audit;
 	}
 
 	@Override
 	public String toString() {
 		return "EmployeeEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
-				+ dateOfBirth + ", address=" + address + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+				+ dateOfBirth + ", address=" + address + ", audit=" + audit + "]";
 	}
+
 }
